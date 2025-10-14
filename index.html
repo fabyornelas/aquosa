@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUOSA - Agua y Soluciones Ambientales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(251, 249, 249, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #0066cc;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(254, 254, 255, 0.7), rgba(0,51,102,0.7)), url('ptar.jpg') ;
+            background-size:cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #00b8cc;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,204,102,0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #0066cc;
+            margin-bottom: 3rem;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8f9fa;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+            border-top: 4px solid #0066cc;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0066cc, #00cc66);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Plants Section */
+        .plants {
+            background: #f8f9fa;
+        }
+
+        .plants-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .plant-category {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .plant-category:hover {
+            transform: scale(1.02);
+        }
+
+        .plant-header {
+            background: linear-gradient(135deg, #0066cc, #003366);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .plant-content {
+            padding: 2rem;
+        }
+
+        .plant-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .plant-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .plant-list li:before {
+            content: "💧";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Equipment Section */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .equipment-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 4px solid #00cc66;
+        }
+
+        .equipment-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .equipment-item h4 {
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #0066cc, #003366);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5 rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            transition: background 0.3s;
+            flex-direction: row;
+            gap:0.5rem;
+        }
+        .contact-item a {
+            color: white;         /* Cambia el color del texto */
+            text-decoration: none; /* Quita el subrayado */
+            font: bold;     /* Opcional: lo pone en negritas */
+            transition: color 0.3s, background 0.3s;
+        }
+        .social-links {
+            display: flex;
+            flex-direction: row; /* Horizontal con espacio */
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-icon img {
+            display: block;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .social-icon:hover img {
+        transform: scale(1.2); /* Crece al pasar el mouse */
+        filter: brightness(1.2); /* Se ilumina un poco */
+        }
+      
+        .contact-item a:hover {
+            color: #00ccff;        /* Cambia de color al pasar el mouse */
+            text-decoration: underline; /* Opcional: subrayado solo al pasar */
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #00cc66;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #00b8cc;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #00b8cc;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .plants-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo"><img src="acronimo.jpg" alt="logo" width="200px"/></div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#plantas">Plantas</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#equipos">Equipos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p>Agua y Soluciones Ambientales</p>
+                <p>Tratamiento responsable para un futuro sustentable</p>
+                <a href="#contacto" class="cta-button">Solicitar Cotización</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="about">
+        <div class="container">
+            <h2 class="section-title">Nosotros</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Nuestra Empresa</h3>
+                    <p>Somos una empresa especializada en el tratamiento de aguas, comprometida con la sostenibilidad, la innovación tecnológica y el cuidado del medio ambiente. Ofrecemos soluciones integrales para la purificación, reutilización y manejo responsable del agua, adaptadas a las necesidades de nuestros clientes.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Misión</h3>
+                    <p>Brindamos soluciones eficientes y sostenibles para el tratamiento de aguas residuales, combinando tecnología, experiencia y compromiso con el medio ambiente. Nuestro objetivo es proteger los recursos hídricos y contribuir al desarrollo de comunidades más limpias y saludables.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Visión</h3>
+                    <p>Ser la empresa líder en soluciones de tratamiento de aguas residuales en nuestra región, reconocida por nuestra innovación, ética profesional y el impacto positivo en el medio ambiente y la sociedad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plants Section -->
+    <section id="plantas" class="plants">
+        <div class="container">
+            <h2 class="section-title">Diseño de Plantas</h2>
+            <div class="plants-categories">
+                <div class="plant-category">
+                    <div class="plant-header">
+                        <h3>Plantas Biológicas Aerobias</h3>
+                    </div>
+                    <div class="plant-content">
+                        <p>Sistemas biológicos que utilizan microorganismos aerobios para degradar la materia orgánica presente en las aguas residuales.</p>
+                        <ul class="plant-list">
+                            <li>Aireación Extendida</li>
+                            <li>UASB (Filtración Ascendente de Manto de Lodos)</li>
+                            <li>MBBR (Moving Bed Biofilm Reactor)</li>
+                            <li>SBR (Reactor Biológico Secuencial)</li>
+                            <li>MBR (Biorreactor de Membranas)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="plant-category">
+                    <div class="plant-header">
+                        <h3>Plantas Fisicoquímicas</h3>
+                    </div>
+                    <div class="plant-content">
+                        <p>Son diseñadas para descargas industriales con caracteristicas de contaminantes quimicos, altas concentraciones de grasas y acites,
+                            pinturas, antibioticos, etc.</p>
+                        <ul class="plant-list">
+                            <li>Sitemas mixtos</li>
+                            <li>Planta de Tratamiento de Aguas de Proceso (PTAP)</li>
+                            <li>Coagulación y Floculación</li>
+                            <li>DAF (Flotación por Aire Disuelto)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏭</div>
+                    <h3>Operación de Plantas</h3>
+                    <p>Gestión integral y operación especializada de plantas de tratamiento de aguas residuales, asegurando su óptimo funcionamiento.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👁️</div>
+                    <h3>Supervisión de Plantas</h3>
+                    <p>Monitoreo continuo y supervisión técnica de sistemas de tratamiento para garantizar el cumplimiento normativo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Rehabilitación</h3>
+                    <p>Diagnóstico, reparación y modernización de plantas existentes para optimizar su rendimiento y eficiencia.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚖️</div>
+                    <h3>Asesoría Jurídica</h3>
+                    <p>Consultoría especializada en normatividad ambiental y cumplimiento de regulaciones del sector hídrico.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section id="equipos" class="about">
+        <div class="container">
+            <h2 class="section-title">Equipos y Tecnología</h2>
+            <div class="equipment-grid">
+                <div class="equipment-item">
+                    <h4>Bombas</h4>
+                    <p>Sistemas de bombeo para diferentes aplicaciones</p>
+                </div>
+                <div class="equipment-item">
+                    <h4>Sopladores</h4>
+                    <p>Equipos de aireación de alta eficiencia, difusores de burbuja</p>
+                </div>
+                <div class="equipment-item">
+                    <h4>Filtros</h4>
+                    <p>Sistemas de filtración avanzada</p>
+                </div>
+        
+                <div class="equipment-item">
+                    <h4>Medios Filtrantes</h4>
+                    <p>Diversos materiales de filtración</p>
+                </div>
+                <div class="equipment-item">
+                    <h4>Cribas</h4>
+                    <p>Sistemas de cribado y separación</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p>+52 33 2754 0968</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>aclientes@aquosa.mx</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div class="contact-text">
+                            <h4>Redes Sociales</h4>
+                            <div class="social-links">
+                                <a href="https://www.instagram.com/aquosasolucionesambientales" target="_blank" class="social-icon instagram">
+                                <img src="instagram-icon.png" alt="Instagram" width="50">
+                                </a>
+                                <a href="https://www.facebook.com/aquosasolucionesambientales" target="_blank" class="social-icon facebook">
+                                <img src="facebook-icon.png" alt="Facebook" width="40">
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <div class="contact-form">
+                    <h3 class="mb-2">¿Te interesa nuestros servicios?</h3>
+                    <form id="contactForm" action="https://formsubmit.co/fabiola@aquosa.mx" method="POST">
+                        <!-- Campos ocultos para configurar FormSubmit -->
+                        <input type="hidden" name="_cc" value="aclientes@aquosa.mx">
+                        <input type="hidden" name="_subject" value="Nueva solicitud desde la página web de AQUOSA">
+                        <input type="hidden" name="_next" value="https://aquosa.mx/gracias.html">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="box">
+                        
+                        <div class="form-group">
+                            <label for="name">Nombre Completo *</label>
+                            <input type="text" id="name" name="Nombre_Completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico *</label>
+                            <input type="email" id="email" name="Correo_Electronico" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono/Celular *</label>
+                            <input type="tel" id="phone" name="Telefono_Celular" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Servicio de Interés *</label>
+                            <select id="service" name="Servicio_de_Interes" required>
+                                <option value="">Selecciona un servicio</option>
+                                <option value="Diseño de Plantas">Diseño de Plantas</option>
+                                <option value="Operación de Plantas">Operación de Plantas</option>
+                                <option value="Supervisión de Plantas">Supervisión de Plantas</option>
+                                <option value="Rehabilitación">Rehabilitación</option>
+                                <option value="Asesoría Jurídica">Asesoría Jurídica</option>
+                                <option value="Equipos">Equipos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje (Opcional)</label>
+                            <textarea id="message" name="Mensaje_Adicional" placeholder="Cuéntanos más sobre tu proyecto..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AQUOSA - Agua y Soluciones Ambientales. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Form submission con envío a correos
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const nombre = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('phone').value.trim();
+            const servicio = document.getElementById('service').value;
+            
+            // Validación básica
+            if (!nombre || !email || !telefono || !servicio) {
+                e.preventDefault();
+                alert('Por favor, completa todos los campos obligatorios marcados con *');
+                return;
+            }
+            
+            // Validación de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                alert('Por favor, ingresa un correo electrónico válido.');
+                return;
+            }
+            
+            // Cambiar el botón durante el envío
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Enviando...<div class="loading"></div>';
+            
+            // FormSubmit manejará el envío automático a fabiola@aquosa.mx y aclientes@aquosa.mx
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.about-card, .service-card, .plant-category, .equipment-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
